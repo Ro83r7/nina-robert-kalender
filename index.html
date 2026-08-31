@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Nina &amp; Robert Kalender</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.15/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.15/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.15/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/multimonth@6.1.15/index.global.min.js"></script>
+</head>
+<body>
+
+<div id="demo-banner" class="banner" hidden>
+  Demo-Modus: Firebase ist noch nicht eingerichtet (siehe README.md). Termine werden aktuell <strong>nicht</strong> dauerhaft gespeichert.
+</div>
+
+<header>
+  <h1>Nina &amp; Robert</h1>
+  <div class="legend">
+    <span><span class="dot nina"></span>Nina</span>
+    <span><span class="dot robert"></span>Robert</span>
+    <span><span class="dot zusammen"></span>Zusammen</span>
+  </div>
+  <button id="add-btn" class="add-btn" type="button">+ Termin</button>
+</header>
+
+<div id="calendar"></div>
+
+<div id="modal-overlay" class="modal-overlay" hidden>
+  <div class="modal">
+    <h2 id="modal-heading">Neuer Termin</h2>
+
+    <label>Titel
+      <input type="text" id="f-title" placeholder="z. B. Zahnarzt, Konzert, Wochenende bei Oma">
+    </label>
+
+    <label>Wer?
+      <select id="f-person">
+        <option value="nina">Nina (allein)</option>
+        <option value="robert">Robert (allein)</option>
+        <option value="zusammen">Zusammen</option>
+      </select>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" id="f-allday" checked> Ganztägig
+    </label>
+
+    <div class="row">
+      <label>Start-Datum
+        <input type="date" id="f-start-date">
+      </label>
+      <label id="f-start-time-wrap">Uhrzeit
+        <input type="time" id="f-start-time">
+      </label>
+    </div>
+
+    <div class="row">
+      <label>End-Datum
+        <input type="date" id="f-end-date">
+      </label>
+      <label id="f-end-time-wrap">Uhrzeit
+        <input type="time" id="f-end-time">
+      </label>
+    </div>
+
+    <p id="form-error" class="form-error" hidden></p>
+
+    <div class="modal-actions">
+      <button id="delete-btn" class="danger" type="button" hidden>Löschen</button>
+      <button id="cancel-btn" type="button">Abbrechen</button>
+      <button id="save-btn" class="primary" type="button">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
