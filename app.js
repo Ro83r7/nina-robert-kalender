@@ -160,7 +160,7 @@ function openModal(existing, defaults) {
     const start = (d.start || todayISO()).slice(0, 10);
     fStartDate.value = start;
     fStartTime.value = '';
-    fEndDate.value = d.end ? d.end.slice(0, 10) : start;
+    fEndDate.value = start;
     fEndTime.value = '';
   }
   updateTimeVisibility();
@@ -180,6 +180,7 @@ function updateTimeVisibility() {
 }
 
 fAllDay.addEventListener('change', updateTimeVisibility);
+fStartDate.addEventListener('change', () => { fEndDate.value = fStartDate.value; });
 document.getElementById('add-btn').addEventListener('click', () => openModal(null));
 cancelBtn.addEventListener('click', closeModal);
 overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
