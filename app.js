@@ -7,9 +7,20 @@ document.getElementById('demo-banner').hidden = !isDemo;
 let events = [];
 let fb = null; // { addEvent, updateEvent, deleteEvent }
 
+function dateToLocalISO(d) {
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
 function todayISO() {
-  const d = new Date();
-  return d.toISOString().slice(0, 10);
+  return dateToLocalISO(new Date());
+}
+
+function addDaysToDateStr(dateStr, days) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return dateToLocalISO(new Date(y, m - 1, d + days));
 }
 
 async function initFirebase() {
@@ -127,7 +138,7 @@ function splitDateTime(iso, fallbackAllDay) {
   if (!iso) return { date: '', time: '' };
   if (fallbackAllDay || iso.length <= 10) return { date: iso.slice(0, 10), time: '' };
   const d = new Date(iso);
-  const date = d.toISOString().slice(0, 10);
+  const date = dateToLocalISO(d);
   const time = d.toTimeString().slice(0, 5);
   return { date, time };
 }
@@ -147,7 +158,8 @@ function openModal(existing, defaults) {
     fStartDate.value = s.date;
     fStartTime.value = s.time;
     const e = splitDateTime(existing.end, existing.allDay);
-    fEndDate.value = e.date || s.date;
+    // Stored all-day "end" is exclusive -> show the inclusive last day in the form
+    fEndDate.value = existing.allDay ? addDaysToDateStr(e.date || s.date, -1) : (e.date || s.date);
     fEndTime.value = e.time;
   } else {
     editingId = null;
@@ -224,9 +236,7 @@ saveBtn.addEventListener('click', async () => {
   if (allDay) {
     start = fStartDate.value;
     // FullCalendar all-day "end" is exclusive -> add one day so the chosen end date is included
-    const endObj = new Date(endDate + 'T00:00:00');
-    endObj.setDate(endObj.getDate() + 1);
-    end = endObj.toISOString().slice(0, 10);
+    end = addDaysToDateStr(endDate, 1);
   } else {
     start = `${fStartDate.value}T${fStartTime.value || '00:00'}`;
     end = `${endDate}T${fEndTime.value || fStartTime.value || '23:59'}`;
