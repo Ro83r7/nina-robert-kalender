@@ -6,7 +6,21 @@ Gemeinsamer Kalender mit Wochen-, Monats- und Jahresansicht. Termine sind farbco
 - 🔵 Blau = Robert allein
 - 🟢 Grün = Zusammen
 
-Aktuell läuft die App im **Demo-Modus**: Termine werden nur im Browser gehalten und gehen beim Neuladen verloren. Damit Termine dauerhaft gespeichert werden und ihr sie in Echtzeit gemeinsam seht, muss einmalig ein kostenloses Firebase-Projekt eingerichtet werden (ca. 10 Minuten, einmalig).
+## Funktionen
+
+- Woche, Monat, Jahr und Liste – die zuletzt genutzte Ansicht wird gemerkt
+- Countdown zum nächsten gemeinsamen Termin und „Als Nächstes“-Liste (60 Tage)
+- Filter pro Person (Chips oben)
+- Wiederholungen: wöchentlich, monatlich, jährlich (Geburtstage, Jahrestag …)
+- Symbol (Emoji), Ort und Notiz pro Termin
+- Termine per Drag & Drop verschieben; Verschieben und Löschen lassen sich rückgängig machen
+- Bundesweite Feiertage, Kalenderwochen, Dunkelmodus
+- Offline-fähig: Änderungen ohne Netz werden später automatisch übertragen
+- Auf dem Handy: „Zum Home-Bildschirm“ hinzufügen → eigene App mit Icon
+- Tastatur: `n` neuer Termin, `t` heute, `←`/`→` blättern, `Esc` schließen, `⌘/Strg+Enter` speichern
+- `?demo` an die URL anhängen → Testmodus, nichts wird gespeichert
+
+Termine werden in Firebase (Firestore) gespeichert und erscheinen in Echtzeit bei euch beiden. Die Einrichtung unten ist bereits erledigt und nur als Referenz dokumentiert.
 
 ## Einrichtung (einmalig)
 
